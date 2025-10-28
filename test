@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+int negative(int *a, const int size, int i) {
+    if (i == size)
+        return 0;
+    if (a[i] < 0)
+        return 1 + negative(a, size, i + 1);
+    else
+        return negative(a, size, i + 1);
+}
+
+void printArray(int *a, const int size) {
+    cout << "[ ";
+    for (int i = 0; i < size; i++) {
+        cout << a[i];
+        if (i < size - 1)
+            cout << ", ";
+    }
+    cout << " ]" << endl;
+}
+
+void testCase(int *a, const int size, const string &testName) {
+    cout << "-------------------------------------\n";
+    cout << "Тест: " << testName << endl;
+    cout << "Масив: ";
+    printArray(a, size);
+
+    int expected;
+    cout << "Введіть очікувану кількість від’ємних елементів: ";
+    cin >> expected;
+
+    int result = negative(a, size, 0);
+
+    cout << "Результат програми: " << result << endl;
+
+    if (result == expected)
+        cout << "Тест пройдено\n";
+    else
+        cout << "Тест провалено\n";
+}
+
+int main() {
+    int test1[] = {1, 2, 3, 4, 5};
+    testCase(test1, 5, "Усі додатні");
+
+    int test2[] = {-1, 2, -3, 4, -5};
+    testCase(test2, 5, "Змішані значення");
+
+    int test3[] = {-1, -2, -3,};
+    testCase(test3, 3, "Усі від’ємні");
+
+    return 0;
+}
